@@ -14,5 +14,18 @@ test("renders without errors", () => {
 test("user can fill out and submit the form", () => {
     render(<ContactForm />);
 
-    const firstNameInput = screen.get
+    const firstNameInput = screen.getByPlaceholderText(/edd/i);
+    const lastNameInput = screen.getByPlaceholderText(/burke/i);
+    const emailInput = screen.getByPlaceholderText(/bluebill1049@hotmail.com/i);
+
+    userEvent.type(firstNameInput, "Samuel");
+    userEvent.type(lastNameInput, "Lee");
+    userEvent.type(emailInput, "samuelxlee@gmail.com");
+
+    const button = screen.getByRole("button");
+    userEvent.click(button);
+
+    expect(firstNameInput.value).toBe("Samuel");
+    expect(lastNameInput.value).toBe("Lee");
+    expect(emailInput.value).toBe("samuelxlee@gmail.com");
 });
